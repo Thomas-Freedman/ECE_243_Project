@@ -1,0 +1,4 @@
+/.DS_Store
+/.venv
+competitionData/
+neural_seq_decoder/notebooks/ptDecoder_ctc
