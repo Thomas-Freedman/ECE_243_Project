@@ -1,3 +1,7 @@
+defaults:
+  - decoder: baseline
+  - _self_
+
 hydra:
   run:
     dir: ${outputDir}
@@ -10,26 +14,7 @@ hydra:
         exclude_keys:
           - outputDir
           - datasetPath
-          
+          - decoder
+
 outputDir: /oak/stanford/groups/henderj/stfan/logs/speech_logs/pt_neural_decoder
 datasetPath: /oak/stanford/groups/henderj/stfan/data/ptDecoder_ctc
-
-seed: 0
-batchSize: 64
-lrStart: 0.02
-lrEnd: 0.02
-l2_decay: 1e-5
-nBatch: 10000
-
-whiteNoiseSD: 0.8
-constantOffsetSD: 0.2
-gaussianSmoothWidth: 2.0
-
-nUnits: 1024
-nLayers: 5
-nInputFeatures: 256
-nClasses: 40
-dropout: 0.4
-strideLen: 4
-kernelLen: 32
-bidirectional: True

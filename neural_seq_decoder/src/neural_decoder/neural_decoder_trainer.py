@@ -6,11 +6,13 @@ from edit_distance import SequenceMatcher
 import hydra
 import numpy as np
 import torch
+from omegaconf import OmegaConf
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader
 
-from .model import GRUDecoder
+from .advanced_trainer import train_advanced_model
 from .dataset import SpeechDataset
+from .model import GRUDecoder
 
 
 def getDatasetLoaders(
@@ -236,10 +238,28 @@ def loadModel(modelDir, nInputLayers=24, device="cuda"):
     return model
 
 
+def _prepare_args(cfg):
+    cfg_dict = OmegaConf.to_container(cfg.decoder, resolve=True)
+    if not isinstance(cfg_dict, dict):
+        raise ValueError("decoder config must resolve to a dict")
+    cfg_dict = dict(cfg_dict)
+    cfg_dict["outputDir"] = cfg.outputDir
+    cfg_dict["datasetPath"] = cfg.datasetPath
+    return cfg_dict
+
+
 @hydra.main(version_base="1.1", config_path="conf", config_name="config")
 def main(cfg):
     cfg.outputDir = os.getcwd()
-    trainModel(cfg)
+    args = _prepare_args(cfg)
+    variant = args.pop("variant", "baseline")
+
+    if variant == "baseline":
+        trainModel(args)
+    elif variant == "advanced":
+        train_advanced_model(args)
+    else:
+        raise ValueError(f"Unknown decoder variant: {variant}")
 
 if __name__ == "__main__":
     main()
