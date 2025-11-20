@@ -186,6 +186,10 @@ class AdvancedArgs:
     testTimeLR: float
     enableTestTimeAdaptation: bool
     diphoneContext: Optional[int] = None
+    transformerTimeMaskProb: float = 0.0
+    relPosMaxDist: Optional[int] = None
+    relBiasByHead: bool = True
+    ffMult: int = 4
 
 
 def train_advanced_model(args: Dict):
@@ -214,6 +218,10 @@ def train_advanced_model(args: Dict):
         intermediate_layer=parsed.intermediateLayer,
         day_count=len(payload["train"]),
         diphone_context=parsed.diphoneContext or parsed.nClasses,
+        time_mask_prob=parsed.transformerTimeMaskProb,
+        rel_pos_max_dist=parsed.relPosMaxDist,
+        rel_bias_by_head=parsed.relBiasByHead,
+        ff_mult=parsed.ffMult,
     ).to(device)
 
     optimizer = torch.optim.AdamW(

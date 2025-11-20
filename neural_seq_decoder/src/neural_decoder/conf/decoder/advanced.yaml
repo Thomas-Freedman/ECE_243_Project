@@ -24,3 +24,7 @@ intermediateLossWeight: 0.3
 testTimeLR: 0.0001
 enableTestTimeAdaptation: false
 diphoneContext: 40
+transformerTimeMaskProb: 0.0
+relPosMaxDist:
+relBiasByHead: true
+ffMult: 4
