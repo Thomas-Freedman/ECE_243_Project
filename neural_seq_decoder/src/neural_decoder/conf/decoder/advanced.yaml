@@ -1,0 +1,26 @@
+variant: advanced
+
+batchSize: 32
+nBatch: 2000
+seed: 0
+lr: 0.001
+weightDecay: 0.0001
+nClasses: 40
+nInputFeatures: 256
+strideLen: 4
+kernelLen: 32
+gaussianSmoothWidth: 2.0
+modelDim: 512
+modelLayers: 6
+modelHeads: 8
+dropout: 0.2
+intermediateLayer: 3
+timeMaskRatio: 0.5
+channelDropProb: 0.2
+featureMaskProb: 0.05
+minTimeMask: 12
+consistencyWeight: 0.2
+intermediateLossWeight: 0.3
+testTimeLR: 0.0001
+enableTestTimeAdaptation: false
+diphoneContext: 40

@@ -1,0 +1,19 @@
+variant: baseline
+
+batchSize: 64
+lrStart: 0.02
+lrEnd: 0.02
+l2_decay: 1e-5
+nBatch: 10000
+seed: 0
+nUnits: 1024
+nLayers: 5
+nClasses: 40
+nInputFeatures: 256
+dropout: 0.4
+whiteNoiseSD: 0.8
+constantOffsetSD: 0.2
+gaussianSmoothWidth: 2.0
+strideLen: 4
+kernelLen: 32
+bidirectional: true
