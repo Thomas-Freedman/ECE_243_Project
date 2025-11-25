@@ -1,4 +1,4 @@
-variant: advanced
+variant: poyo
 
 batchSize: 32
 nBatch: 2000
@@ -27,6 +27,7 @@ enableOnlineAdaptation: true
 onlineAdaptationLR: 0.00001
 diphoneContext: 40
 transformerTimeMaskProb: 0.1
-relPosMaxDist:
-relBiasByHead: true
 ffMult: 4
+nSessions: 10
+nTokens: 1024
+binSize: 4
