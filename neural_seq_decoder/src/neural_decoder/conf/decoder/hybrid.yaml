@@ -1,4 +1,4 @@
-variant: advanced
+variant: hybrid
 
 batchSize: 32
 nBatch: 2000
@@ -11,7 +11,8 @@ strideLen: 4
 kernelLen: 32
 gaussianSmoothWidth: 2.0
 modelDim: 512
-modelLayers: 6
+numTransformerLayers: 2
+numSSMLayers: 4
 modelHeads: 8
 dropout: 0.2
 intermediateLayer: 3
@@ -30,3 +31,5 @@ transformerTimeMaskProb: 0.1
 relPosMaxDist:
 relBiasByHead: true
 ffMult: 4
+ssmDState: 16
+ssmDConv: 4
