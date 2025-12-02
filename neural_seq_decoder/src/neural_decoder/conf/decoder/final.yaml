@@ -1,0 +1,34 @@
+variant: final
+
+# Optimized bidirectional GRU model with improved training
+
+batchSize: 64
+lrStart: 0.02
+lrEnd: 0.005
+nBatch: 15000
+seed: 0
+
+# Model architecture (matches second-place solution)
+nUnits: 1024
+nLayers: 5
+nClasses: 40
+nInputFeatures: 256
+dropout: 0.4
+bidirectional: true
+
+# Preprocessing
+gaussianSmoothWidth: 2.0
+strideLen: 4
+kernelLen: 32
+
+# Augmentations
+whiteNoiseSD: 0.8
+constantOffsetSD: 0.2
+
+# Regularization
+l2_decay: 1e-5
+
+# Optimizer: SGD with momentum
+useSGD: true
+momentum: 0.9
+useNesterov: true
