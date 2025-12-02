@@ -86,13 +86,25 @@ def trainModel(args):
     ).to(device)
 
     loss_ctc = torch.nn.CTCLoss(blank=0, reduction="mean", zero_infinity=True)
-    optimizer = torch.optim.Adam(
-        model.parameters(),
-        lr=args["lrStart"],
-        betas=(0.9, 0.999),
-        eps=0.1,
-        weight_decay=args["l2_decay"],
-    )
+
+    # Use SGD with momentum for final model
+    if args.get("useSGD", False):
+        optimizer = torch.optim.SGD(
+            model.parameters(),
+            lr=args["lrStart"],
+            momentum=args.get("momentum", 0.9),
+            nesterov=args.get("useNesterov", True),
+            weight_decay=args["l2_decay"],
+        )
+    else:
+        optimizer = torch.optim.Adam(
+            model.parameters(),
+            lr=args["lrStart"],
+            betas=(0.9, 0.999),
+            eps=0.1,
+            weight_decay=args["l2_decay"],
+        )
+
     scheduler = torch.optim.lr_scheduler.LinearLR(
         optimizer,
         start_factor=1.0,

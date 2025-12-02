@@ -2,6 +2,10 @@ defaults:
   - decoder: baseline
   - _self_
 
+# Default paths (override these when running)
+datasetPath: ~/competitionData/ptDecoder_ctc
+outputDir: ~/results
+
 hydra:
   run:
     dir: ${outputDir}
@@ -15,6 +19,3 @@ hydra:
           - outputDir
           - datasetPath
           - decoder
-
-outputDir: /oak/stanford/groups/henderj/stfan/logs/speech_logs/pt_neural_decoder
-datasetPath: /oak/stanford/groups/henderj/stfan/data/ptDecoder_ctc

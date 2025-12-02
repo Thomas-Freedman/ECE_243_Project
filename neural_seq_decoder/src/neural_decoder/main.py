@@ -4,8 +4,7 @@ Main training script with Hydra configuration.
 Usage:
     python -m neural_decoder.main decoder=baseline
     python -m neural_decoder.main decoder=advanced
-    python -m neural_decoder.main decoder=hybrid
-    python -m neural_decoder.main decoder=poyo
+    python -m neural_decoder.main decoder=final
 """
 
 import hydra
@@ -28,27 +27,32 @@ def main(cfg: DictConfig) -> None:
     if variant == "baseline":
         from .neural_decoder_trainer import trainModel
         print("\nStarting BASELINE GRU training...")
-        trainModel(OmegaConf.to_container(cfg.decoder, resolve=True))
+        args = OmegaConf.to_container(cfg.decoder, resolve=True)
+        args["outputDir"] = cfg.outputDir
+        args["datasetPath"] = cfg.datasetPath
+        trainModel(args)
 
     elif variant == "advanced":
         from .advanced_trainer import train_advanced_model
         print("\nStarting ADVANCED Transformer training...")
-        train_advanced_model(OmegaConf.to_container(cfg.decoder, resolve=True))
+        args = OmegaConf.to_container(cfg.decoder, resolve=True)
+        args["outputDir"] = cfg.outputDir
+        args["datasetPath"] = cfg.datasetPath
+        train_advanced_model(args)
 
-    elif variant == "hybrid":
-        from .advanced_trainer import train_hybrid_model
-        print("\nStarting HYBRID (Transformer+SSM) training...")
-        train_hybrid_model(OmegaConf.to_container(cfg.decoder, resolve=True))
-
-    elif variant == "poyo":
-        from .advanced_trainer import train_poyo_model
-        print("\nStarting POYO (spike tokenization) training...")
-        train_poyo_model(OmegaConf.to_container(cfg.decoder, resolve=True))
+    elif variant == "final":
+        from .neural_decoder_trainer import trainModel
+        print("\nStarting FINAL MODEL training...")
+        print("Using optimized bidirectional GRU + SGD with Nesterov momentum")
+        args = OmegaConf.to_container(cfg.decoder, resolve=True)
+        args["outputDir"] = cfg.outputDir
+        args["datasetPath"] = cfg.datasetPath
+        trainModel(args)
 
     else:
         raise ValueError(
             f"Unknown decoder variant: {variant}. "
-            f"Choose from: baseline, advanced, hybrid, poyo"
+            f"Choose from: baseline, advanced, final"
         )
 
     print("\n" + "=" * 70)
