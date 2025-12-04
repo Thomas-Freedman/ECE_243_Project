@@ -1,0 +1,41 @@
+variant: final2
+
+batchSize: 64
+nBatch: 20000
+seed: 0
+max_epochs: 100
+
+# Input features
+nInputFeatures: 256
+nClasses: 40
+
+# Architecture
+conv_size: 1024
+conv_kernel1: 7
+conv_kernel2: 3
+conv_g1: 256
+conv_g2: 1
+
+hidden_size: 512
+encoder_n_layer: 5
+decoder_n_layer: 5
+
+decoders: ['al', 'ph']
+update_probs: 0.7
+al_loss_weight: 0.5
+
+# Optimizer
+lrStart: 0.001
+lrEnd: 0.0001
+peak_lr: 0.001
+last_lr: 0.0001
+beta_1: 0.9
+beta_2: 0.999
+weight_decay: 0.01
+l2_decay: 0.00001
+eps: 0.00000001
+lr_warmup_perc: 0.1
+
+gradient_clip_val: 1.0
+accumulate_grad_batches: 1
+precision: '32'

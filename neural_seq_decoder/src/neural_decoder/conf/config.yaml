@@ -2,7 +2,6 @@ defaults:
   - decoder: baseline
   - _self_
 
-# Default paths (override these when running)
 datasetPath: ~/competitionData/ptDecoder_ctc
 outputDir: ~/results
 

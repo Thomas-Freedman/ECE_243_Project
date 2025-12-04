@@ -3,7 +3,7 @@ variant: baseline
 batchSize: 64
 lrStart: 0.02
 lrEnd: 0.02
-l2_decay: 1e-5
+l2_decay: 0.00001
 nBatch: 10000
 seed: 0
 nUnits: 1024

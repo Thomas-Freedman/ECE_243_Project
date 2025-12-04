@@ -24,9 +24,10 @@ kernelLen: 32
 # Augmentations
 whiteNoiseSD: 0.8
 constantOffsetSD: 0.2
+featureMaskProb: 0.1
 
 # Regularization
-l2_decay: 1e-5
+l2_decay: 0.00001
 
 # Optimizer: SGD with momentum
 useSGD: true

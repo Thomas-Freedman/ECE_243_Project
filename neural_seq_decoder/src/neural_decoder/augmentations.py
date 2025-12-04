@@ -24,6 +24,26 @@ class MeanDriftNoise(nn.Module):
         noise = torch.randn(1, C) * self.std
         return x + noise
 
+class FeatureMasking(nn.Module):
+    """
+    Randomly masks out features (neural channels) to zero with a given probability.
+    This helps the model not rely too heavily on specific channels and improves robustness.
+
+    Arguments:
+        mask_prob (float): Probability of masking each individual feature value (0.0 to 1.0)
+    """
+    def __init__(self, mask_prob=0.1):
+        super().__init__()
+        self.mask_prob = mask_prob
+
+    def forward(self, x):
+        if self.mask_prob <= 0 or not self.training:
+            return x
+        # Create random mask: each element has mask_prob chance of being masked
+        mask = torch.rand_like(x) < self.mask_prob
+        # Set masked elements to zero
+        return x.masked_fill(mask, 0)
+
 class GaussianSmoothing(nn.Module):
     """
     Apply gaussian smoothing on a
